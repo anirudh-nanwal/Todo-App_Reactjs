@@ -1,0 +1,14 @@
+.Filter {display: none;flex-direction: row;justify-content: center; align-items: center;position: absolute;top: 48px;left: 41%;transition: display 1s;}
+.filter-card{display: flex;flex-direction: column;height: 300px; flex-basis: 30%; border-radius: 10px;padding: 10px;border: 1px solid white; background-color: black}
+.label-container{display: flex;flex-direction: column;justify-content: center;margin: 10px;}
+.label-container .label{line-height: 34px !important;display: flex;}
+.label-container .date-range{display: flex;flex-direction: row;height: 34px !important;}
+.label-container .date-range .from-date, .label-container .date-range .to-date{border-radius: 10px !important;}
+.label-container .priority{display: flex;flex-direction: row;align-items: center;height: 34px !important;}
+.label-container .priority .priority_1{margin-right: 5px;}
+.label-container .priority .priority_2{margin-right: 5px;}
+.label-container .priority .priority_3{margin-right: 5px;}
+.label-container .priority .label_1{margin-right: 10px;}
+.label-container .priority .label_2{margin-right: 10px;}
+.label-container .priority .label_3{margin-right: 10px;}
+.footer-actions{display: flex;flex-direction: row-reverse; align-items: flex-end;}
