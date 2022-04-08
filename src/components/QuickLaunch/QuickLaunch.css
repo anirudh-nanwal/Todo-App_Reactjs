@@ -1,6 +1,0 @@
-.QuickLaunch {display: flex;flex-direction: row;align-items: center;justify-content: center;}
-.quick-launch-card{display: flex;flex-direction: row;flex-basis: 50%;border-radius: 50px;align-items: center; justify-content: center;height: 38px;}
-.list-view{display: flex;margin-right: 10px;font-size: 22px !important;cursor: pointer;}
-.week-view{display: flex;margin-right: 10px;font-size: 22px !important;cursor: pointer;}
-.filter{display: flex;margin-right: 10px;font-size: 18px !important;cursor: pointer;}
-.sort{display: flex;font-size: 22px !important;cursor: pointer;}
