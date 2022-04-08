@@ -3,13 +3,17 @@ import Card from '../Card/Card';
 import './Sort.css';
 
 interface SortProps {
-  className: string
+  className: string,
+  onMouseOver: Function,
+  onMouseLeave: Function
 }
 
 const Sort: FC<SortProps> = (props) => {
   const classes = 'Sort ' + props.className;
+  const showSort = props.onMouseOver;
+  const hideSort = props.onMouseLeave;
   return (
-    <div className={classes} data-testid="Sort">
+    <div className={classes} data-testid="Sort" onMouseOver={() => { showSort() }} onMouseLeave={() => { hideSort() }}>
       <Card className='sort-card'>
         <div className='label-container ws-fb-20'>
           <label htmlFor='dateRange' className='label'>Date Range</label>

@@ -3,7 +3,7 @@ import './App.css';
 import ListView from './components/ListView/ListView';
 import QuickLaunch from './components/QuickLaunch/QuickLaunch';
 import WeekView from './components/WeekView/WeekView';
-import { WEEK_VIEW, LIST_VIEW } from './pojo/Constants';
+import { WEEK_VIEW, LIST_VIEW } from './Utility/Constants';
 import Todo from './pojo/Todo';
 
 function App() {

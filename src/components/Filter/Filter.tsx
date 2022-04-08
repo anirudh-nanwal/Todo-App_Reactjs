@@ -1,20 +1,28 @@
 import React, { FC } from 'react';
 import Card from '../Card/Card';
 import './Filter.css';
+import { DEFAULT_MAX_DATE, DEFAULT_MIN_DATE } from '../../Utility/Constants';
 
 interface FilterProps {
-  className: string
+  className: string,
+  onMouseOver: Function,
+  onMouseLeave: Function
 }
 
 const Filter: FC<FilterProps> = (props) => {
-  const classes = 'Filter ' + props.className;
+  const classes: string = 'Filter ' + props.className;
+  const defaultMinDate: string = DEFAULT_MIN_DATE.toISOString().substring(0, 10);
+  const defaultMaxDate: string = DEFAULT_MAX_DATE.toISOString().substring(0, 10);
+  const showFilter = props.onMouseOver;
+  const hideFilter = props.onMouseLeave;
+
   return (
-    <div className={classes}>
+    <div className={classes} onMouseOver={() => { showFilter() }} onMouseLeave={() => { hideFilter() }}>
       <Card className='filter-card'>
         <div className='label-container ws-fb-20'>
           <label htmlFor='dateRange' className='label'>Date Range</label>
           <div className='date-range' id='dateRange'>
-            <input type="date" className='from-date' /><span className='ws-p-lr-10 ws-d-flex align-items-center'>-</span><input type="date" className='to-date' />
+            <input type="date" className='from-date' defaultValue={defaultMinDate} /><span className='ws-p-lr-10 ws-d-flex align-items-center'>-</span><input type="date" className='to-date' defaultValue={defaultMaxDate} />
           </div>
         </div>
         <div className='label-container ws-fb-20'>
