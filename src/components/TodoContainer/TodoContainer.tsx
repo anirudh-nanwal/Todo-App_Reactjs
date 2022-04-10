@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useState } from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import Todo from '../../pojo/Todo';
 import { DATE_FULL, DEFAULT_MIN_DATE } from '../../Utility/Constants';
@@ -18,14 +19,15 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
   const todo = props.todo;
   const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
   const addTodoHandler: Function = props.addTodoHandler !== undefined ? props.addTodoHandler : () => { return };
-  let newTodo: Todo = new Todo(0, '', DEFAULT_MIN_DATE.getTime());
+  const [newTodo, updateNewTodo] = useState(new Todo(0, '', DEFAULT_MIN_DATE.getTime()));
   const onTitleChangeHandler: Function = (event: React.ChangeEvent<HTMLInputElement>): void => {
     let title: string = event.target.value;
-    newTodo.setTitle(title);
+    updateNewTodo(new Todo(newTodo.getId(), title, newTodo.getCompleteBy()));
   }
   const onDateChangeHandler: Function = (event: React.ChangeEvent<HTMLInputElement>): void => {
     let date: Date = new Date(event.target.value);
-    newTodo.setCompleteBy(date.getTime());
+    date.setTimeToZero();
+    updateNewTodo(new Todo(newTodo.getId(), newTodo.getTitle(), date.getTime()));
   }
   if (todo !== undefined) {
     return (
@@ -51,7 +53,7 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           <input type="text" className="title" id='todoTitle' onChange={(event) => { onTitleChangeHandler(event) }} />
         </div>
         <div className="todo-complete-by">
-          <input type="date" className="complete-by" id="todoCompleteBy" value={new Date(newTodo.getCompleteBy()).getFormattedDate()} onChange={(event) => { onDateChangeHandler(event) }} />
+          <input type="date" className="complete-by" id="todoCompleteBy"  onChange={(event) => { onDateChangeHandler(event) }} />
         </div>
         <div className="actions">
           <div className="add-todo">

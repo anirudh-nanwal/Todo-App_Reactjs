@@ -35,9 +35,20 @@ function App() {
     showAddTmpl: false,
     showEditTmpl: false
   })
-  todos.sort((a: Todo, b: Todo) => {
-    return a.getCompleteBy() - b.getCompleteBy();
-  })
+
+  const sortTodosByDate: Function = (listOfTodos: Todo[]): Todo[] => {
+    listOfTodos.sort((a: Todo, b: Todo) => {
+      return a.getCompleteBy() - b.getCompleteBy();
+    })
+    return listOfTodos;
+  }
+
+  const sortTodosByPriority: Function = (listOfTodos: Todo[]): Todo[] => {
+    return listOfTodos;
+  }
+
+  sortTodosByDate(todos);
+  
   const [todoList, updateTodoList] = useState(todos);
 
   useEffect(() => {
@@ -55,16 +66,19 @@ function App() {
   }
 
 
-  const addTodoHandler = (todo: Todo): void => {
-    let id: number = 0;
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].getId() !== i) {
-        id = i;
-        break;
-      }
+  const addTodoHandler = (newTodo: Todo): void => {
+    let noOftodos: number = todoList.length;
+    let sumIds: number = noOftodos * ( noOftodos + 1 ) / 2;
+    let actualSumIds: number = 0;
+
+    for (let todo of todoList) {
+      actualSumIds = actualSumIds + todo.getId();
     }
-    todo.setId(id);
-    todos.push(todo);
+    let id: number = sumIds - actualSumIds !== 0 ? sumIds - actualSumIds : todoList.length + 1;
+    newTodo.setId(id);
+    updateTodoList((prevTodosList) => {
+      return sortTodosByDate([...prevTodosList, newTodo]);
+    })
   }
 
   return (

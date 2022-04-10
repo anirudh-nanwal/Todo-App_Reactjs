@@ -144,7 +144,7 @@ Date.prototype.getFormattedDate = function (date: Date | undefined) {
     if (date !== undefined) {
         return date.toISOString().substring(0, 10);
     }
-    return this.toDateString().substring(0, 10);
+    return this.toISOString().substring(0, 10);
 }
 
 export { };

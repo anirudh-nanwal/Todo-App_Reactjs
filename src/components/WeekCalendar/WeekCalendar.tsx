@@ -6,14 +6,17 @@ import '../../Utility/DateUtils';
 import Day from '../../pojo/Day';
 
 interface WeekCalendarProps {
-  className: string
+  className: string,
+  weekDate: Day[],
+  prevWeekHandler: Function,
+  nextWeekHandler: Function
 }
 
 const WeekCalendar: FC<WeekCalendarProps> = (props) => {
   const classes: string = 'WeekCalendar ' + props.className;
-  const date: Date = new Date();
-  let currWeek: Day[] = date.getCurrentWeek();
-  const [weekDate, setWeekDate] = useState(currWeek);
+  const weekDate: Day[] = props.weekDate;
+  const prevWeekHandler: Function = props.prevWeekHandler;
+  const nextWeekHandler: Function = props.nextWeekHandler;
   const weekDateComponent: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>[] = [];
   for (let day of weekDate) {
     weekDateComponent.push(
@@ -22,20 +25,6 @@ const WeekCalendar: FC<WeekCalendarProps> = (props) => {
         <div className="date">{(new Date(day.date)).convertDateToDateSkey()}</div>
       </div>
     );
-  }
-
-  const nextWeekHandler: Function = (): void => {
-    const lastWeekEndDate: Date = new Date(weekDate[6].date);
-    let nextWeekStartDate: Date = new Date(lastWeekEndDate.setDate(lastWeekEndDate.getDate() + 1));
-    currWeek = nextWeekStartDate.getNextWeek();
-    setWeekDate(currWeek);
-  }
-
-  const prevWeekHandler: Function = (): void => {
-    const currWeekStartDate: Date = new Date(weekDate[0].date);
-    let lastWeekStartDate: Date = new Date(currWeekStartDate.setDate(currWeekStartDate.getDate() - 7));
-    currWeek = lastWeekStartDate.getNextWeek();
-    setWeekDate(currWeek);
   }
 
   return (
