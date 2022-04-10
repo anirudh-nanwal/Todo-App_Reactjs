@@ -1,18 +1,21 @@
+/* eslint-disable no-extend-native */
 import Day from '../pojo/Day';
+import { DATE_FULL, DATE_SHORT } from './Constants';
 
 declare global {
     interface Date {
         daysMap: Array<Day>,
         dayNumberVsDayMap: Array<{ dayShort: string, dayFull: string }>,
         monthMap: Array<{ monthShort: string, monthFull: string }>,
-        convertDateToDateSkey: () => string,
+        convertDateToDateSkey: (dateLength?: string | undefined) => string,
         convertDateSkeyToDate: (dateSkey: string) => Date,
         setTimeToZero: () => Date,
         getCurrentWeek: () => Array<Day>,
         getNextWeek: () => Array<Day>,
         getPreviousWeek: () => Array<Day>,
         getWeekStartDate: (date: Date) => Date,
-        getWeekEndDate: (date: Date) => Date
+        getWeekEndDate: (date: Date) => Date,
+        getFormattedDate: (date?: Date | undefined) => string
     }
 }
 
@@ -51,8 +54,12 @@ Date.prototype.monthMap = [
     { monthShort: 'Dec', monthFull: 'December' }
 ];
 
-Date.prototype.convertDateToDateSkey = function () {
-    const dateSkey: string = this.getDate() + ' ' + this.monthMap[this.getMonth()].monthShort + ', ' + this.getFullYear();
+Date.prototype.convertDateToDateSkey = function (dateLength: string | undefined) {
+    let dateSkey: string = '';
+    if (dateLength === undefined || dateLength === DATE_SHORT)
+        dateSkey = this.getDate() + ' ' + this.monthMap[this.getMonth()].monthShort + ', ' + this.getFullYear();
+    else if (dateLength === DATE_FULL)
+        dateSkey = this.getDate() + ' ' + this.monthMap[this.getMonth()].monthFull + ', ' + this.getFullYear();
     return dateSkey;
 };
 
@@ -132,5 +139,12 @@ Date.prototype.getWeekEndDate = function (date: Date | undefined) {
     }
     return weekEndDate;
 };
+
+Date.prototype.getFormattedDate = function (date: Date | undefined) {
+    if (date !== undefined) {
+        return date.toISOString().substring(0, 10);
+    }
+    return this.toDateString().substring(0, 10);
+}
 
 export { };

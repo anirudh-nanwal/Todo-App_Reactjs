@@ -1,5 +1,5 @@
 .Filter {display: none;flex-direction: row;justify-content: center; align-items: center;position: absolute;top: 38px;left: 42%;}
-.filter-card{display: flex;flex-direction: column;height: 300px; width: 310px !important; border-radius: 10px;padding: 10px;border: 1px solid white; background-color: black}
+.filter-card{display: flex;flex-direction: column;height: 300px; width: 310px !important; border-radius: 10px;padding: 10px;border: 1px solid white; background-color: #161515 !important}
 .label-container{display: flex;flex-direction: column;justify-content: center;margin: 10px;}
 .label-container .label{line-height: 34px !important;display: flex;}
 .label-container .date-range{display: flex;flex-direction: row;height: 34px !important;}

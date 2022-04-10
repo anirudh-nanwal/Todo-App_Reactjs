@@ -1,1 +1,8 @@
-.TodoContainer {}
+.TodoContainer {flex-direction: row; min-height: 60px; background-color: #161515 !important; border-radius: 10px;align-items: center; padding: 10px; margin-left: 10px; margin-right: 10px;}
+.TodoContainer .todo-title{display: flex;flex-basis: 30%;}
+.TodoContainer .todo-title .title{display: flex;flex-basis: 50%;}
+.TodoContainer .todo-complete-by{display: flex;flex-basis: 30%;}
+.TodoContainer .todo-complete-by .complete-by{display: flex;flex-basis: 50%;}
+.TodoContainer .actions{display: flex;flex-direction: row-reverse;flex-basis: 40%;}
+.TodoContainer .actions .delete-todo{display: flex;flex-basis: 5%;}
+.TodoContainer .actions .edit-todo{display: flex;flex-basis: 5%;}

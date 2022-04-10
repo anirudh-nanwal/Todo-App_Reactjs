@@ -5,17 +5,21 @@ import Sort from '../Sort/Sort';
 import './QuickLaunch.css';
 import { FaFilter } from 'react-icons/fa';
 import { BiSortAlt2 } from 'react-icons/bi';
-import { MdCalendarViewWeek, MdOutlineViewStream } from 'react-icons/md';
+import { MdAdd, MdCalendarViewWeek, MdOutlineViewStream } from 'react-icons/md';
 import { LIST_VIEW, WEEK_VIEW } from '../../Utility/Constants';
 
 interface QuickLaunchProps {
-  onViewChange: Function
+  onViewChange: (viewName: string) => void,
+  onAddClick: (show: boolean) => void,
+  showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean }
 }
 
 const QuickLaunch: FC<QuickLaunchProps> = (props) => {
   const [filter, showFilter] = useState({ show: false, class: 'ws-d-none' });
   const [sort, showSort] = useState({ show: false, class: 'ws-d-none' });
   const onViewChange: Function = props.onViewChange;
+  const onAddClick: Function = props.onAddClick;
+  const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
   const showFilterHandler: Function = (show: boolean): void => {
     setTimeout(() => {
       if (show) {
@@ -52,6 +56,9 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
           </div>
           <div className="sort" onMouseOver={() => { showSortHandler(true) }} onMouseLeave={() => { showSortHandler(false) }} >
             <BiSortAlt2 />
+          </div>
+          <div className="add" onClick={() => { onAddClick(!showAddEditTmpl.showAddTmpl) }}>
+            <MdAdd />
           </div>
         </Card>
       </div>

@@ -10,12 +10,18 @@ interface WeekCalendarProps {
 }
 
 const WeekCalendar: FC<WeekCalendarProps> = (props) => {
-  const date = new Date();
-  let currWeek = date.getCurrentWeek();
+  const classes: string = 'WeekCalendar ' + props.className;
+  const date: Date = new Date();
+  let currWeek: Day[] = date.getCurrentWeek();
   const [weekDate, setWeekDate] = useState(currWeek);
-  const weekDateComponent = [];
+  const weekDateComponent: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>[] = [];
   for (let day of weekDate) {
-    weekDateComponent.push(<div className='week-day' key={day.dayNo}>{(new Date(day.date)).convertDateToDateSkey()}</div>);
+    weekDateComponent.push(
+      <div className='week-day' key={day.dayNo}>
+        <div className="day">{day.dayFull}</div>
+        <div className="date">{(new Date(day.date)).convertDateToDateSkey()}</div>
+      </div>
+    );
   }
 
   const nextWeekHandler: Function = (): void => {
@@ -33,7 +39,7 @@ const WeekCalendar: FC<WeekCalendarProps> = (props) => {
   }
 
   return (
-    <div className={`WeekCalendar ${props.className}`}>
+    <div className={classes}>
       <Card className='week-view'>
         <div className="left-container">
           <MdArrowBackIos onClick={() => { prevWeekHandler() }} />

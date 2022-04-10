@@ -4,3 +4,4 @@
 .week-view{display: flex;font-size: 22px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}
 .filter{display: flex;font-size: 18px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}
 .sort{display: flex;font-size: 22px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}
+.add{display: flex;font-size: 22px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}

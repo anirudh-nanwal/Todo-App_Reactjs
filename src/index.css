@@ -5,6 +5,7 @@ html{
   flex-direction: column;
   box-sizing: border-box;
   height: 100%;
+  overflow-y: hidden;
 }
 
 body {
@@ -23,3 +24,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.height-100-percent{height: 100%;}

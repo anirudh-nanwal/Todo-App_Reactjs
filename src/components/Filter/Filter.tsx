@@ -11,8 +11,8 @@ interface FilterProps {
 
 const Filter: FC<FilterProps> = (props) => {
   const classes: string = 'Filter ' + props.className;
-  const defaultMinDate: string = DEFAULT_MIN_DATE.toISOString().substring(0, 10);
-  const defaultMaxDate: string = DEFAULT_MAX_DATE.toISOString().substring(0, 10);
+  const defaultMinDate: string = DEFAULT_MIN_DATE.getFormattedDate();
+  const defaultMaxDate: string = DEFAULT_MAX_DATE.getFormattedDate();
   const showFilter = props.onMouseOver;
   const hideFilter = props.onMouseLeave;
 
