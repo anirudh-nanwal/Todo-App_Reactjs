@@ -1,4 +1,4 @@
-.QuickLaunch {display: flex;flex-direction: row;align-items: center;justify-content: center;}
+.QuickLaunch {display: flex;flex-direction: row;align-items: center;justify-content: center;flex-basis: 5%; height: 5%;}
 .quick-launch-card{display: flex;flex-direction: row;flex-basis: 50%;border-radius: 50px;align-items: center; justify-content: center;height: 38px;}
 .list-view{display: flex;font-size: 22px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}
 .week-view{display: flex;font-size: 22px !important;cursor: pointer;width: 5%;align-items: center;justify-content: center;height: 38px;}
