@@ -6,7 +6,7 @@ This is a web app developed using Reactjs and typescript libraries. This app cur
 3. Sort todos
 4. Filter todos
 5. Add Todos
-6. Delete Todos (not developed)
+6. Delete Todos
 7. Edit Todos (not developed)
 8. User login (not developed)
 
