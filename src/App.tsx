@@ -70,8 +70,7 @@ function App() {
     });
   }
 
-
-  const addTodoHandler = (newTodo: Todo): void => {
+  const addTodoHandler: Function = (newTodo: Todo): void => {
     let noOftodos: number = todoList.length;
     let sumIds: number = noOftodos * (noOftodos + 1) / 2;
     let actualSumIds: number = 0;
@@ -86,11 +85,25 @@ function App() {
     })
   }
 
+  const cancelAddTodoHandler: Function = (): void => {
+    setAddEditFlag((prevState) => {
+      return { ...prevState, showAddTmpl: false };
+    })
+  }
+
+  const deleteTodoHandler: Function = (todoId: number): void => {
+    let updateTodos: Todo[] = todoList.filter(todo => {
+      return todo.getId() !== todoId;
+    });
+    console.log(updateTodos);
+    updateTodoList(updateTodos);
+  }
+
   return (
     <div className='ws-d-flex ws-flex-col ws-fb-100 height-100-percent'>
       <QuickLaunch view={view} onViewChange={udpateViewHandler} onAddClick={onAddClickHandler} showAddEditTmpl={showAddEditTmpl} filterSettings={filterSettings} sortSettings={sortSettings} updateFilterSettings={updateFilterSettings} updateSortSettings={updateSortSettings}></QuickLaunch>
-      {view === WEEK_VIEW && (<WeekView todos={todoList} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings} sortSettings={sortSettings}></WeekView>)}
-      {view === LIST_VIEW && (<ListView todos={todoList} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings}></ListView>)}
+      {view === WEEK_VIEW && (<WeekView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings} sortSettings={sortSettings}></WeekView>)}
+      {view === LIST_VIEW && (<ListView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings}></ListView>)}
     </div>
   );
 }

@@ -17,7 +17,9 @@ interface ListViewProps {
   addTodoHandler: Function,
   updateTodoList: Function,
   filterSettings: FilterSettings,
-  sortSettings: SortSettings
+  sortSettings: SortSettings,
+  deleteTodoHandler?: Function,
+  cancelAddTodoHandler?: Function
 }
 
 const ListView: FC<ListViewProps> = (props) => {
@@ -26,6 +28,8 @@ const ListView: FC<ListViewProps> = (props) => {
   const addTodoHandler: Function = props.addTodoHandler;
   const filterSettings: FilterSettings = props.filterSettings;
   const sortSettings: SortSettings = props.sortSettings;
+  const deleteTodoHandler: Function = props.deleteTodoHandler !== undefined ? props.deleteTodoHandler : () => { return };
+  const cancelAddTodoHandler: Function = props.cancelAddTodoHandler !== undefined ? props.cancelAddTodoHandler : () => { return };
   let todosComponent: any[] = [];
   if (sortSettings.dateSortFlag) sortTodosByDate(todos, sortSettings.dateSort);
   else if (sortSettings.prioritySortFlag) sortTodosByPriority(todos, sortSettings.prioritySort);
@@ -35,13 +39,13 @@ const ListView: FC<ListViewProps> = (props) => {
     if (todo.getPriority() === PRIORITY.LOW) classes = "low-priority";
     else if (todo.getPriority() === PRIORITY.MEDIUM) classes = 'medium-priority';
     else if (todo.getPriority() === PRIORITY.HIGH) classes = 'high-priority';
-    todosComponent.push(<TodoContainer className={classes} todo={todo} showAddEditTmpl={showAddEditTmpl} key={todo.getId()}></TodoContainer>);
+    todosComponent.push(<TodoContainer className={classes} todo={todo} showAddEditTmpl={showAddEditTmpl} key={todo.getId()} deleteTodoHandler={deleteTodoHandler}></TodoContainer>);
   }
   return (
     <>
       <div className="ListView" data-testid="ListView">
         <Card className='list-todos'>
-          {showAddEditTmpl.showAddTmpl && <TodoContainer className='low-priority' showAddEditTmpl={showAddEditTmpl} addTodoHandler={addTodoHandler}></TodoContainer>}
+          {showAddEditTmpl.showAddTmpl && <TodoContainer cancelAddTodoHandler={cancelAddTodoHandler} className='low-priority' showAddEditTmpl={showAddEditTmpl} addTodoHandler={addTodoHandler}></TodoContainer>}
           {todosComponent.length === 0 && (<div className='no-todos-present'>No todos present</div>)}
           {todosComponent.length > 0 && (todosComponent)}
         </Card>

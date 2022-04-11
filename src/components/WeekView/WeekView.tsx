@@ -21,7 +21,9 @@ interface WeekViewProps {
   updateTodoList: Function,
   filterSettings: FilterSettings,
   sortSettings: SortSettings,
-  updateFilterSettings: Function
+  updateFilterSettings: Function,
+  deleteTodoHandler: Function,
+  cancelAddTodoHandler: Function
 }
 
 const WeekView: FC<WeekViewProps> = (props) => {
@@ -34,6 +36,8 @@ const WeekView: FC<WeekViewProps> = (props) => {
   const sortSettings: SortSettings = props.sortSettings;
   const filterSettings: FilterSettings = props.filterSettings;
   const updateFilterSettings: Function = props.updateFilterSettings;
+  const deleteTodoHandler: Function = props.deleteTodoHandler;
+  const cancelAddTodoHandler: Function = props.cancelAddTodoHandler !== undefined ? props.cancelAddTodoHandler : () => { return };
 
   useEffect(() => {
     updateFilterSettings(new FilterSettings(weekDate[0].date, weekDate[6].date, filterSettings.priority));
@@ -82,14 +86,14 @@ const WeekView: FC<WeekViewProps> = (props) => {
     if (todo.getPriority() === PRIORITY.LOW) classes = "low-priority";
     else if (todo.getPriority() === PRIORITY.MEDIUM) classes = 'medium-priority';
     else if (todo.getPriority() === PRIORITY.HIGH) classes = 'high-priority';
-    todosComponent.push(<TodoContainer className={classes} todo={todo} key={todo.getId()} showAddEditTmpl={showAddEditTmpl}></TodoContainer>);
+    todosComponent.push(<TodoContainer className={classes} todo={todo} key={todo.getId()} showAddEditTmpl={showAddEditTmpl} deleteTodoHandler={deleteTodoHandler}></TodoContainer>);
   }
   return (
     <>
       <div className="WeekView" data-testid="WeekView">
         <WeekCalendar className='' prevWeekHandler={prevWeekHandler} nextWeekHandler={nextWeekHandler} weekDate={weekDate}></WeekCalendar>
         <Card className='list-todos'>
-          {showAddEditTmpl.showAddTmpl && <TodoContainer className='low-priority' showAddEditTmpl={showAddEditTmpl} addTodoHandler={addTodoHandler}></TodoContainer>}
+          {showAddEditTmpl.showAddTmpl && <TodoContainer cancelAddTodoHandler={cancelAddTodoHandler} className='low-priority' showAddEditTmpl={showAddEditTmpl} addTodoHandler={addTodoHandler}></TodoContainer>}
           {todosComponent.length === 0 && (<div className='no-todos-present'>No todos present</div>)}
           {todosComponent.length > 0 && (todosComponent)}
         </Card>

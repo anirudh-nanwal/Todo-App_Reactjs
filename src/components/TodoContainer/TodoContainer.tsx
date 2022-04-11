@@ -12,7 +12,9 @@ interface TodoContainerProps {
     showAddTmpl: boolean,
     showEditTmpl: boolean
   },
-  addTodoHandler?: Function
+  addTodoHandler?: Function,
+  deleteTodoHandler?: Function,
+  cancelAddTodoHandler?: Function
 }
 
 const TodoContainer: FC<TodoContainerProps> = (props) => {
@@ -21,6 +23,8 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
   const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
   const addTodoHandler: Function = props.addTodoHandler !== undefined ? props.addTodoHandler : () => { return };
   const [newTodo, updateNewTodo] = useState(new Todo(0, '', DEFAULT_CURR_DATE.getTime()));
+  const deleteTodoHandler: Function = props.deleteTodoHandler !== undefined ? props.deleteTodoHandler : () => { return };
+  const cancelAddTodoHandler: Function = props.cancelAddTodoHandler !== undefined ? props.cancelAddTodoHandler : () => { return };
   const onTitleChangeHandler: Function = (event: React.ChangeEvent<HTMLInputElement>): void => {
     let title: string = event.target.value;
     updateNewTodo(new Todo(newTodo.getId(), title, newTodo.getCompleteBy()));
@@ -37,7 +41,7 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
         </div>
         <div className="todo-complete-by">{(new Date(todo.getCompleteBy())).convertDateToDateSkey(DATE_FULL)}</div>
         <div className="actions">
-          <div className="delete-todo">
+          <div className="delete-todo" onClick={() => { deleteTodoHandler(todo.getId()) }}>
             <MdDelete></MdDelete>
           </div>
           <div className="edit-todo">
@@ -56,10 +60,12 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
           <input type="date" className="complete-by" id="todoCompleteBy" onChange={(event) => { onDateChangeHandler(event) }} />
         </div>
         <div className="actions">
+          <div className="cancel">
+            <button className="btn btn-primary" onClick={() => { cancelAddTodoHandler() }}>Cancel</button>
+          </div>
           <div className="add-todo">
             <button className="btn btn-primary" onClick={() => { addTodoHandler(newTodo) }}>Add</button>
           </div>
-          <div className="cancel"></div>
         </div>
       </Card>
     );
