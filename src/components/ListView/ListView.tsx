@@ -6,6 +6,7 @@ import TodoContainer from '../TodoContainer/TodoContainer';
 import FilterSettings from '../../pojo/FilterSettings';
 import SortSettings from '../../pojo/SortSettings';
 import { PRIORITY } from '../../Utility/Constants';
+import { sortTodosByDate, sortTodosByPriority } from '../../Utility/SortFilterTodos';
 
 interface ListViewProps {
   todos: Todo[],
@@ -23,8 +24,14 @@ const ListView: FC<ListViewProps> = (props) => {
   const todos: Todo[] = props.todos;
   const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
   const addTodoHandler: Function = props.addTodoHandler;
+  const filterSettings: FilterSettings = props.filterSettings;
+  const sortSettings: SortSettings = props.sortSettings;
+  console.log(filterSettings);
   let todosComponent: any[] = [];
+  if (sortSettings.dateSortFlag) sortTodosByDate(todos, sortSettings.dateSort);
+  else if (sortSettings.prioritySortFlag) sortTodosByPriority(todos, sortSettings.prioritySort);
   for (let todo of todos) {
+    if (filterSettings.startDate > todo.getCompleteBy() || filterSettings.endDate < todo.getCompleteBy() || !filterSettings.priority.includes(todo.getPriority())) continue;
     let classes: string = 'low-priority';
     if (todo.getPriority() === PRIORITY.LOW) classes = "low-priority";
     else if (todo.getPriority() === PRIORITY.MEDIUM) classes = 'medium-priority';

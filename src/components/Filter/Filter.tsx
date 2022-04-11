@@ -27,8 +27,6 @@ const Filter: FC<FilterProps> = (props) => {
     applyFilterSettings();
   }
   const changePriorityHandler: Function = (priority: PRIORITY): void => {
-    console.log(filterSettings.priority.indexOf(priority));
-    console.log(filterSettings.priority);
     if (filterSettings.priority.indexOf(priority) > -1) {
       let ind = filterSettings.priority.indexOf(priority);
       filterSettings.priority.splice(ind, 1);
@@ -38,7 +36,6 @@ const Filter: FC<FilterProps> = (props) => {
     applyFilterSettings();
   }
   const applyFilterSettings: Function = (): void => {
-    console.log(filterSettings);
     updateFilterSettings(new FilterSettings(filterSettings.startDate, filterSettings.endDate, filterSettings.priority));
   }
 
