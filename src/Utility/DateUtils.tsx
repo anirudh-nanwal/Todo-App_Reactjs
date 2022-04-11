@@ -141,10 +141,10 @@ Date.prototype.getWeekEndDate = function (date: Date | undefined) {
 };
 
 Date.prototype.getFormattedDate = function (date: Date | undefined) {
-    if (date !== undefined) {
-        return date.toISOString().substring(0, 10);
-    }
-    return this.toISOString().substring(0, 10);
+    if (date === undefined) date = this;
+    const offset = date.getTimezoneOffset()
+    date = new Date(date.getTime() - (offset * 60 * 1000))
+    return date.toISOString().substring(0, 10);
 }
 
 export { };

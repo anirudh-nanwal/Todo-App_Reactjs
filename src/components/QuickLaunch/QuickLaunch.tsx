@@ -7,11 +7,17 @@ import { FaFilter } from 'react-icons/fa';
 import { BiSortAlt2 } from 'react-icons/bi';
 import { MdAdd, MdCalendarViewWeek, MdOutlineViewStream } from 'react-icons/md';
 import { LIST_VIEW, WEEK_VIEW } from '../../Utility/Constants';
+import SortSettings from '../../pojo/SortSettings';
+import FilterSettings from '../../pojo/FilterSettings';
 
 interface QuickLaunchProps {
   onViewChange: (viewName: string) => void,
   onAddClick: (show: boolean) => void,
-  showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean }
+  showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean },
+  sortSettings: SortSettings,
+  filterSettings: FilterSettings,
+  updateSortSettings: Function,
+  updateFilterSettings: Function
 }
 
 const QuickLaunch: FC<QuickLaunchProps> = (props) => {
@@ -20,6 +26,10 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
   const onViewChange: Function = props.onViewChange;
   const onAddClick: Function = props.onAddClick;
   const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
+  const filterSettings: FilterSettings = props.filterSettings;
+  const sortSettings: SortSettings = props.sortSettings;
+  const updateFilterSettings: Function = props.updateFilterSettings;
+  const updateSortSettings: Function = props.updateSortSettings;
   const showFilterHandler: Function = (show: boolean): void => {
     setTimeout(() => {
       if (show) {
@@ -51,10 +61,10 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
           <div className="week-view">
             <MdCalendarViewWeek onClick={() => { onViewChange(WEEK_VIEW) }} />
           </div>
-          <div className="filter" onMouseOver={() => { showFilterHandler(true) }} onMouseLeave={() => { showFilterHandler(false) }} >
+          <div className="filter" onClick={() => { showFilterHandler(!filter.show) }} >
             <FaFilter />
           </div>
-          <div className="sort" onMouseOver={() => { showSortHandler(true) }} onMouseLeave={() => { showSortHandler(false) }} >
+          <div className="sort" onClick={() => { showSortHandler(!sort.show) }} >
             <BiSortAlt2 />
           </div>
           <div className="add" onClick={() => { onAddClick(!showAddEditTmpl.showAddTmpl) }}>
@@ -62,8 +72,8 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
           </div>
         </Card>
       </div>
-      <Filter onMouseOver={() => { showFilterHandler(true) }} onMouseLeave={() => { showFilterHandler(false) }} className={filter.class}></Filter>
-      <Sort onMouseOver={() => { showSortHandler(true) }} onMouseLeave={() => { showSortHandler(false) }} className={sort.class}></Sort>
+      <Filter className={filter.class} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings}></Filter>
+      <Sort className={sort.class} sortSettings={sortSettings} updateSortSettings={updateSortSettings}></Sort>
     </>
   );
 };

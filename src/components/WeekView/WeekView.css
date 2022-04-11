@@ -1,3 +1,6 @@
 .WeekView {display: flex;flex-direction: column;flex-basis: 100%;align-items: center;margin-bottom: 10px;height: 90%;}
 .WeekView .list-todos{display: flex;flex-direction: column;flex-basis: 90%;overflow-y: scroll;border-radius: 10px;width: 70%;padding: 10px;}
 .WeekView .no-todos-present{display: flex;align-items: center;justify-content: center;font-size: 22px !important;}
+.high-priority{border-left: 1px solid red;}
+.medium-priority{border-left: 1px solid yellow;}
+.low-priority{border-left: 1px solid green;}
