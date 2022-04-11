@@ -23,5 +23,6 @@ export const DATE_SORT: string = 'dateSort';
 export const LOW_PRIORITY: string = 'low';
 export const MEDIUM_PRIORITY: string = 'medium';
 export const HIGH_PRIORITY: string = 'high';
-export const DEFAULT_FILTER_SETINGS: FilterSettings = new FilterSettings(DEFAULT_MIN_DATE.getTime(), DEFAULT_MAX_DATE.getTime());
+export const DEFAULT_FILTER_SETTINGS: FilterSettings = new FilterSettings(DEFAULT_MIN_DATE.getTime(), DEFAULT_MAX_DATE.getTime());
 export const DEFAULT_SORT_SETTINGS: SortSettings = new SortSettings(true, ASCENDING, false, ASCENDING);
+export const CURR_WEEK_DATE: { startDate: Date, endDate: Date } = { startDate: DEFAULT_CURR_DATE.getWeekStartDate(), endDate: DEFAULT_CURR_DATE.getWeekEndDate() };

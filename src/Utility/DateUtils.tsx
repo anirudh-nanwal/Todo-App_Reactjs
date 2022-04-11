@@ -131,10 +131,10 @@ Date.prototype.getWeekStartDate = function (date: Date | undefined) {
 Date.prototype.getWeekEndDate = function (date: Date | undefined) {
     let weekEndDate: Date;
     if (date !== undefined) {
-        weekEndDate = new Date(date.setDate(date.getDate() - date.getDay()));
+        weekEndDate = new Date(date.setDate(date.getDate() - date.getDay() + 6));
         weekEndDate.setTimeToZero();
     } else {
-        weekEndDate = new Date(this.setDate(this.getDate() - this.getDay()));
+        weekEndDate = new Date(this.setDate(this.getDate() - this.getDay() + 6));
         weekEndDate.setTimeToZero();
     }
     return weekEndDate;

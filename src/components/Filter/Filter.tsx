@@ -1,17 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Card from '../Card/Card';
 import './Filter.css';
-import { DEFAULT_FILTER_SETINGS, DEFAULT_MAX_DATE, DEFAULT_MIN_DATE, PRIORITY } from '../../Utility/Constants';
+import { CURR_WEEK_DATE, DEFAULT_FILTER_SETTINGS, DEFAULT_MAX_DATE, DEFAULT_MIN_DATE, LIST_VIEW, PRIORITY, WEEK_VIEW } from '../../Utility/Constants';
 import FilterSettings from '../../pojo/FilterSettings';
 
 interface FilterProps {
   className: string,
+  view: string,
   filterSettings: FilterSettings,
   updateFilterSettings: Function
 }
 
 const Filter: FC<FilterProps> = (props) => {
   const classes: string = 'Filter ' + props.className;
+  const view: string = props.view;
   const defaultMinDate: string = DEFAULT_MIN_DATE.getFormattedDate();
   const defaultMaxDate: string = DEFAULT_MAX_DATE.getFormattedDate();
   const filterSettings: FilterSettings = props.filterSettings;
@@ -37,8 +39,17 @@ const Filter: FC<FilterProps> = (props) => {
   }
 
   const onResetHandler: Function = (): void => {
-    filterSettings.startDate = DEFAULT_FILTER_SETINGS.startDate;
-    filterSettings.endDate = DEFAULT_FILTER_SETINGS.endDate;
+    let startDate: number;
+    let endDate: number;
+    if (view === WEEK_VIEW) {
+      startDate = CURR_WEEK_DATE.startDate.getTime();
+      endDate = CURR_WEEK_DATE.endDate.getTime();
+    } else {
+      startDate = DEFAULT_FILTER_SETTINGS.startDate;
+      endDate = DEFAULT_FILTER_SETTINGS.endDate;
+    }
+    filterSettings.startDate = startDate;
+    filterSettings.endDate = endDate;
     filterSettings.priority = [PRIORITY.LOW, PRIORITY.MEDIUM, PRIORITY.HIGH];
     applyFilterSettings();
   }

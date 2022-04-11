@@ -7,7 +7,7 @@ import TodoContainer from '../TodoContainer/TodoContainer';
 import Day from '../../pojo/Day';
 import FilterSettings from '../../pojo/FilterSettings';
 import SortSettings from '../../pojo/SortSettings';
-import { PRIORITY } from '../../Utility/Constants';
+import { CURR_WEEK_DATE, PRIORITY } from '../../Utility/Constants';
 import { sortTodosByDate, sortTodosByPriority } from '../../Utility/SortFilterTodos';
 import { filterTodos } from '../../Utility/SortFilterTodos';
 
@@ -20,7 +20,8 @@ interface WeekViewProps {
   addTodoHandler: Function,
   updateTodoList: Function,
   filterSettings: FilterSettings,
-  sortSettings: SortSettings
+  sortSettings: SortSettings,
+  updateFilterSettings: Function
 }
 
 const WeekView: FC<WeekViewProps> = (props) => {
@@ -32,10 +33,10 @@ const WeekView: FC<WeekViewProps> = (props) => {
   const [currWeekTodos, updateCurrWeekTodos] = useState(new Array<Todo>());
   const sortSettings: SortSettings = props.sortSettings;
   const filterSettings: FilterSettings = props.filterSettings;
+  const updateFilterSettings: Function = props.updateFilterSettings;
 
   useEffect(() => {
-    filterSettings.startDate = weekDate[0].date;
-    filterSettings.endDate = weekDate[6].date;
+    updateFilterSettings(new FilterSettings(weekDate[0].date, weekDate[6].date, filterSettings.priority));
     updateSelectedWeekTodos();
   }, [todos, weekDate]);
 
@@ -45,6 +46,8 @@ const WeekView: FC<WeekViewProps> = (props) => {
     const lastWeekEndDate: Date = new Date(weekDate[6].date);
     let nextWeekStartDate: Date = new Date(lastWeekEndDate.setDate(lastWeekEndDate.getDate() + 1));
     currWeek = nextWeekStartDate.getNextWeek();
+    CURR_WEEK_DATE.startDate = new Date(currWeek[0].date);
+    CURR_WEEK_DATE.endDate = new Date(currWeek[6].date);
     setWeekDate(currWeek);
     updateSelectedWeekTodos(currWeek);
   }
@@ -53,6 +56,8 @@ const WeekView: FC<WeekViewProps> = (props) => {
     const currWeekStartDate: Date = new Date(weekDate[0].date);
     let lastWeekStartDate: Date = new Date(currWeekStartDate.setDate(currWeekStartDate.getDate() - 7));
     currWeek = lastWeekStartDate.getNextWeek();
+    CURR_WEEK_DATE.startDate = new Date(currWeek[0].date);
+    CURR_WEEK_DATE.endDate = new Date(currWeek[6].date);
     setWeekDate(currWeek);
     updateSelectedWeekTodos(currWeek);
   }

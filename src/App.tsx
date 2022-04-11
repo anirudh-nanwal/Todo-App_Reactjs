@@ -3,7 +3,7 @@ import './App.css';
 import ListView from './components/ListView/ListView';
 import QuickLaunch from './components/QuickLaunch/QuickLaunch';
 import WeekView from './components/WeekView/WeekView';
-import { WEEK_VIEW, LIST_VIEW, DEFAULT_MIN_DATE, DEFAULT_MAX_DATE, ASCENDING, PRIORITY, DEFAULT_SORT_SETTINGS, DEFAULT_FILTER_SETINGS } from './Utility/Constants';
+import { WEEK_VIEW, LIST_VIEW, DEFAULT_MIN_DATE, DEFAULT_MAX_DATE, ASCENDING, PRIORITY, DEFAULT_SORT_SETTINGS, DEFAULT_FILTER_SETTINGS } from './Utility/Constants';
 import Todo from './pojo/Todo';
 import FilterSettings from './pojo/FilterSettings';
 import SortSettings from './pojo/SortSettings';
@@ -38,7 +38,7 @@ function App() {
     showAddTmpl: false,
     showEditTmpl: false
   })
-  const [filterSettings, updateFilterSettings] = useState({ ...DEFAULT_FILTER_SETINGS });
+  const [filterSettings, updateFilterSettings] = useState({ ...DEFAULT_FILTER_SETTINGS });
   const [sortSettings, updateSortSettings] = useState({ ...DEFAULT_SORT_SETTINGS });
 
   sortTodosByDate(todos, ASCENDING);
@@ -52,13 +52,12 @@ function App() {
   useEffect(() => {
     if (view === LIST_VIEW) {
       updateFilterSettings(new FilterSettings(DEFAULT_MIN_DATE.getTime(), DEFAULT_MAX_DATE.getTime()));
-      updateSortSettings(new SortSettings(true, ASCENDING, false, ASCENDING));
     } else if (view === WEEK_VIEW) {
       let startDate: number = (new Date().getWeekStartDate().setTimeToZero()).getTime();
       let endDate: number = (new Date().getWeekEndDate().setTimeToZero()).getTime();
       updateFilterSettings(new FilterSettings(startDate, endDate));
-      updateSortSettings(new SortSettings(true, ASCENDING, false, ASCENDING));
     }
+    updateSortSettings(new SortSettings(true, ASCENDING, false, ASCENDING));
   }, [view]);
 
   const udpateViewHandler = (viewName: string): void => {
@@ -89,8 +88,8 @@ function App() {
 
   return (
     <div className='ws-d-flex ws-flex-col ws-fb-100 height-100-percent'>
-      <QuickLaunch onViewChange={udpateViewHandler} onAddClick={onAddClickHandler} showAddEditTmpl={showAddEditTmpl} filterSettings={filterSettings} sortSettings={sortSettings} updateFilterSettings={updateFilterSettings} updateSortSettings={updateSortSettings}></QuickLaunch>
-      {view === WEEK_VIEW && (<WeekView todos={todoList} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings}></WeekView>)}
+      <QuickLaunch view={view} onViewChange={udpateViewHandler} onAddClick={onAddClickHandler} showAddEditTmpl={showAddEditTmpl} filterSettings={filterSettings} sortSettings={sortSettings} updateFilterSettings={updateFilterSettings} updateSortSettings={updateSortSettings}></QuickLaunch>
+      {view === WEEK_VIEW && (<WeekView todos={todoList} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings} sortSettings={sortSettings}></WeekView>)}
       {view === LIST_VIEW && (<ListView todos={todoList} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings}></ListView>)}
     </div>
   );

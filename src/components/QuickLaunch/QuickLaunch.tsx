@@ -11,6 +11,7 @@ import SortSettings from '../../pojo/SortSettings';
 import FilterSettings from '../../pojo/FilterSettings';
 
 interface QuickLaunchProps {
+  view: string,
   onViewChange: (viewName: string) => void,
   onAddClick: (show: boolean) => void,
   showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean },
@@ -21,6 +22,7 @@ interface QuickLaunchProps {
 }
 
 const QuickLaunch: FC<QuickLaunchProps> = (props) => {
+  const view: string = props.view;
   const [filter, showFilter] = useState({ show: false, class: 'ws-d-none' });
   const [sort, showSort] = useState({ show: false, class: 'ws-d-none' });
   const onViewChange: Function = props.onViewChange;
@@ -72,7 +74,7 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
           </div>
         </Card>
       </div>
-      {filter.show && <Filter className={filter.class} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings}></Filter>}
+      {filter.show && <Filter className={filter.class} view={view} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings}></Filter>}
       {sort.show && <Sort className={sort.class} sortSettings={sortSettings} updateSortSettings={updateSortSettings}></Sort>}
     </>
   );
