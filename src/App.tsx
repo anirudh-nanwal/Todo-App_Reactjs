@@ -38,8 +38,8 @@ function App() {
     showAddTmpl: false,
     showEditTmpl: false
   })
-  const [filterSettings, updateFilterSettings] = useState(DEFAULT_FILTER_SETINGS)
-  const [sortSettings, updateSortSettings] = useState(DEFAULT_SORT_SETTINGS);
+  const [filterSettings, updateFilterSettings] = useState({ ...DEFAULT_FILTER_SETINGS });
+  const [sortSettings, updateSortSettings] = useState({ ...DEFAULT_SORT_SETTINGS });
 
   sortTodosByDate(todos, ASCENDING);
 
@@ -51,8 +51,13 @@ function App() {
 
   useEffect(() => {
     if (view === LIST_VIEW) {
-      updateFilterSettings(new FilterSettings(todoList[0].getCompleteBy(), todoList[todoList.length - 1].getCompleteBy()));
-      updateSortSettings(new SortSettings(true, ASCENDING, false, undefined));
+      updateFilterSettings(new FilterSettings(DEFAULT_MIN_DATE.getTime(), DEFAULT_MAX_DATE.getTime()));
+      updateSortSettings(new SortSettings(true, ASCENDING, false, ASCENDING));
+    } else if (view === WEEK_VIEW) {
+      let startDate: number = (new Date().getWeekStartDate().setTimeToZero()).getTime();
+      let endDate: number = (new Date().getWeekEndDate().setTimeToZero()).getTime();
+      updateFilterSettings(new FilterSettings(startDate, endDate));
+      updateSortSettings(new SortSettings(true, ASCENDING, false, ASCENDING));
     }
   }, [view]);
 

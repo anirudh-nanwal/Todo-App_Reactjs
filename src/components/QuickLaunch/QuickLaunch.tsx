@@ -72,8 +72,8 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
           </div>
         </Card>
       </div>
-      <Filter className={filter.class} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings}></Filter>
-      <Sort className={sort.class} sortSettings={sortSettings} updateSortSettings={updateSortSettings}></Sort>
+      {filter.show && <Filter className={filter.class} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings}></Filter>}
+      {sort.show && <Sort className={sort.class} sortSettings={sortSettings} updateSortSettings={updateSortSettings}></Sort>}
     </>
   );
 };

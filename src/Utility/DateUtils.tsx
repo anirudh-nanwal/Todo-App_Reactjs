@@ -13,8 +13,8 @@ declare global {
         getCurrentWeek: () => Array<Day>,
         getNextWeek: () => Array<Day>,
         getPreviousWeek: () => Array<Day>,
-        getWeekStartDate: (date: Date) => Date,
-        getWeekEndDate: (date: Date) => Date,
+        getWeekStartDate: (date?: Date) => Date,
+        getWeekEndDate: (date?: Date) => Date,
         getFormattedDate: (date?: Date | undefined) => string
     }
 }

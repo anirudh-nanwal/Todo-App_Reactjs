@@ -3,8 +3,8 @@
 This is a web app developed using Reactjs and typescript libraries. This app currently under development phase but majority of the features are developed and hence, has been deployed on github pages (https://anirudh-nanwal.github.io/Todo-App_Reactjs/). Following is the list of features that this app supports ( or will be available in the future):
 1. Week View
 2. List View
-3. Sort todos (not developed)
-4. Filter todos (not developed)
+3. Sort todos
+4. Filter todos
 5. Add Todos
 6. Delete Todos (not developed)
 7. Edit Todos (not developed)

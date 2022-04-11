@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Card from '../Card/Card';
 import './Filter.css';
-import { DEFAULT_MAX_DATE, DEFAULT_MIN_DATE, PRIORITY } from '../../Utility/Constants';
+import { DEFAULT_FILTER_SETINGS, DEFAULT_MAX_DATE, DEFAULT_MIN_DATE, PRIORITY } from '../../Utility/Constants';
 import FilterSettings from '../../pojo/FilterSettings';
 
 interface FilterProps {
@@ -35,6 +35,13 @@ const Filter: FC<FilterProps> = (props) => {
     }
     applyFilterSettings();
   }
+
+  const onResetHandler: Function = (): void => {
+    filterSettings.startDate = DEFAULT_FILTER_SETINGS.startDate;
+    filterSettings.endDate = DEFAULT_FILTER_SETINGS.endDate;
+    filterSettings.priority = [PRIORITY.LOW, PRIORITY.MEDIUM, PRIORITY.HIGH];
+    applyFilterSettings();
+  }
   const applyFilterSettings: Function = (): void => {
     updateFilterSettings(new FilterSettings(filterSettings.startDate, filterSettings.endDate, filterSettings.priority));
   }
@@ -62,7 +69,7 @@ const Filter: FC<FilterProps> = (props) => {
           </div>
         </div>
         <div className="footer-actions ws-fb-60">
-          <button className="btn btn-tertiary">Reset</button>
+          <button className="btn btn-tertiary" onClick={() => { onResetHandler() }}>Reset</button>
           {/* <button className="btn btn-primary ws-m-r-20" onClick={applyFilterSettings}>Apply</button> */}
         </div>
       </Card>

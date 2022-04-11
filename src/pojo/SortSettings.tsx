@@ -1,18 +1,14 @@
 class SortSettings {
-    dateSortFlag: boolean = false;
-    dateSort: string | undefined;
+    dateSortFlag: boolean = true;
+    dateSort: string;
     prioritySortFlag: boolean = false;
-    prioritySort: string | undefined;
+    prioritySort: string;
 
-    constructor(dateSortFlag: boolean, dateSort: string | undefined, prioritySortFlag: boolean, prioritySort: string | undefined) {
+    constructor(dateSortFlag: boolean, dateSort: string, prioritySortFlag: boolean, prioritySort: string) {
         this.dateSortFlag = dateSortFlag;
         this.prioritySortFlag = prioritySortFlag;
-        if (dateSort !== undefined) {
-            this.dateSort = dateSort;
-        }
-        else if (prioritySortFlag !== undefined) {
-            this.prioritySort = prioritySort;
-        }
+        this.dateSort = dateSort;
+        this.prioritySort = prioritySort;
     }
 }
 

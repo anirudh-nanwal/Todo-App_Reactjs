@@ -2,6 +2,11 @@ import FilterSettings from '../pojo/FilterSettings';
 import SortSettings from '../pojo/SortSettings';
 import './DateUtils';
 
+export const enum PRIORITY {
+    LOW = 1,
+    MEDIUM = 2,
+    HIGH = 3
+}
 export const WEEK_VIEW: string = 'week-view';
 export const LIST_VIEW: string = 'list-view';
 export const NO_TODOS_MSG: string = 'No Todos Present!';
@@ -18,10 +23,5 @@ export const DATE_SORT: string = 'dateSort';
 export const LOW_PRIORITY: string = 'low';
 export const MEDIUM_PRIORITY: string = 'medium';
 export const HIGH_PRIORITY: string = 'high';
-export const enum PRIORITY {
-    LOW = 1,
-    MEDIUM = 2,
-    HIGH = 3
-};
 export const DEFAULT_FILTER_SETINGS: FilterSettings = new FilterSettings(DEFAULT_MIN_DATE.getTime(), DEFAULT_MAX_DATE.getTime());
-export const DEFAULT_SORT_SETTINGS: SortSettings = new SortSettings(true, ASCENDING, false, undefined);
+export const DEFAULT_SORT_SETTINGS: SortSettings = new SortSettings(true, ASCENDING, false, ASCENDING);

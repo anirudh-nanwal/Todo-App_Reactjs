@@ -13,7 +13,6 @@ export const sortTodosByDate: Function = (listOfTodos: Todo[], sortType: string)
 export const sortTodosByPriority: Function = (listOfTodos: Todo[], sortType: string): Todo[] => {
     listOfTodos.sort((a: Todo, b: Todo) => {
         if (sortType === ASCENDING) return a.getPriority().valueOf() - b.getPriority().valueOf();
-        console.log(a.getPriority().valueOf());
         return b.getPriority().valueOf() - a.getPriority().valueOf();
     });
     return listOfTodos;

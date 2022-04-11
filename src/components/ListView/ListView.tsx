@@ -26,7 +26,6 @@ const ListView: FC<ListViewProps> = (props) => {
   const addTodoHandler: Function = props.addTodoHandler;
   const filterSettings: FilterSettings = props.filterSettings;
   const sortSettings: SortSettings = props.sortSettings;
-  console.log(filterSettings);
   let todosComponent: any[] = [];
   if (sortSettings.dateSortFlag) sortTodosByDate(todos, sortSettings.dateSort);
   else if (sortSettings.prioritySortFlag) sortTodosByPriority(todos, sortSettings.prioritySort);
