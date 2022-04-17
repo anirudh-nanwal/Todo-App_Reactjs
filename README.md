@@ -7,8 +7,9 @@ This is a web app developed using Reactjs and typescript libraries. This app cur
 4. Filter todos
 5. Add Todos
 6. Delete Todos
-7. Edit Todos (not developed)
-8. User login (not developed)
+7. Todos Priority (not developed)
+8. Edit Todos (not developed)
+9. User login (not developed)
 
 Also, the data is static as the backend services are not yet developed. Hence, the User Login feature will be developed after the backend services have been developed and integrated with the application.
 
