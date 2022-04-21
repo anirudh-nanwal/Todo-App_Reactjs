@@ -14,12 +14,15 @@ interface TodoContainerProps {
   },
   addTodoHandler?: Function,
   deleteTodoHandler?: Function,
-  cancelAddTodoHandler?: Function
+  cancelAddTodoHandler?: Function,
+  setConfirmBox?: Function,
+  showConfirmBox?: { show: boolean, todoId: number }
 }
 
 const TodoContainer: FC<TodoContainerProps> = (props) => {
   const classes = 'TodoContainer ' + props.className;
   const todo = props.todo;
+  const setConfirmBox: Function = props.setConfirmBox !== undefined ? props.setConfirmBox : () => { return };
   const showAddEditTmpl: { showAddTmpl: boolean, showEditTmpl: boolean } = props.showAddEditTmpl;
   const addTodoHandler: Function = props.addTodoHandler !== undefined ? props.addTodoHandler : () => { return };
   const [newTodo, updateNewTodo] = useState(new Todo(0, '', DEFAULT_CURR_DATE.getTime()));
@@ -42,7 +45,7 @@ const TodoContainer: FC<TodoContainerProps> = (props) => {
         <div className="todo-complete-by">{(new Date(todo.getCompleteBy())).convertDateToDateSkey(DATE_FULL)}</div>
         <div className="actions">
           <div className="delete-todo" onClick={() => { deleteTodoHandler(todo.getId()) }}>
-            <MdDelete></MdDelete>
+            <MdDelete onClick={() => { setConfirmBox({ show: true, todoId: todo.getId() }) }}></MdDelete>
           </div>
           <div className="edit-todo">
             <MdEdit></MdEdit>

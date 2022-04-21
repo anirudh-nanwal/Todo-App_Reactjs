@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import Card from '../Card/Card';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
@@ -9,6 +9,7 @@ import { MdAdd, MdCalendarViewWeek, MdOutlineViewStream } from 'react-icons/md';
 import { LIST_VIEW, WEEK_VIEW } from '../../Utility/Constants';
 import SortSettings from '../../pojo/SortSettings';
 import FilterSettings from '../../pojo/FilterSettings';
+import TodoContext from '../../todoContext/todo-context';
 
 interface QuickLaunchProps {
   view: string,
@@ -32,6 +33,8 @@ const QuickLaunch: FC<QuickLaunchProps> = (props) => {
   const sortSettings: SortSettings = props.sortSettings;
   const updateFilterSettings: Function = props.updateFilterSettings;
   const updateSortSettings: Function = props.updateSortSettings;
+  // const todoCtx = useContext(TodoContext);
+  // const viewName: string = todoCtx.viewName;
   const showFilterHandler: Function = (show: boolean): void => {
     setTimeout(() => {
       if (show) {

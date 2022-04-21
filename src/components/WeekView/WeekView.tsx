@@ -8,8 +8,8 @@ import Day from '../../pojo/Day';
 import FilterSettings from '../../pojo/FilterSettings';
 import SortSettings from '../../pojo/SortSettings';
 import { CURR_WEEK_DATE, PRIORITY } from '../../Utility/Constants';
-import { sortTodosByDate, sortTodosByPriority } from '../../Utility/SortFilterTodos';
-import { filterTodos } from '../../Utility/SortFilterTodos';
+import { sortTodosByDate, sortTodosByPriority, filterTodos } from '../../Utility/SortFilterTodos';
+import ConfirmBox from '../confirmBox/ConfirmBox';
 
 interface WeekViewProps {
   todos: Todo[],
@@ -23,11 +23,16 @@ interface WeekViewProps {
   sortSettings: SortSettings,
   updateFilterSettings: Function,
   deleteTodoHandler: Function,
-  cancelAddTodoHandler: Function
+  cancelAddTodoHandler: Function,
+  showConfirmBox: { show: boolean, todoId: number },
+  setConfirmBox: Function
 }
 
 const WeekView: FC<WeekViewProps> = (props) => {
   let todos: Todo[] = props.todos;
+  const showConfirmBox: { show: boolean, todoId: number } = props.showConfirmBox;
+  const setConfirmBox: Function = props.setConfirmBox;
+  const updateTodoList: Function = props.updateTodoList;
   const addTodoHandler: Function = props.addTodoHandler;
   const date: Date = new Date();
   let currWeek: Day[] = date.getCurrentWeek();
@@ -86,7 +91,18 @@ const WeekView: FC<WeekViewProps> = (props) => {
     if (todo.getPriority() === PRIORITY.LOW) classes = "low-priority";
     else if (todo.getPriority() === PRIORITY.MEDIUM) classes = 'medium-priority';
     else if (todo.getPriority() === PRIORITY.HIGH) classes = 'high-priority';
-    todosComponent.push(<TodoContainer className={classes} todo={todo} key={todo.getId()} showAddEditTmpl={showAddEditTmpl} deleteTodoHandler={deleteTodoHandler}></TodoContainer>);
+    todosComponent.push(<TodoContainer showConfirmBox={showConfirmBox} setConfirmBox={setConfirmBox} className={classes} todo={todo} key={todo.getId()} showAddEditTmpl={showAddEditTmpl} deleteTodoHandler={deleteTodoHandler}></TodoContainer>);
+  }
+  const deleteTodo: Function = (todoId: number, confirm: boolean) => {
+    if (!confirm) {
+      setConfirmBox({ show: false, todoId: 0 });
+      return;
+    }
+    let updateTodos: Todo[] = todos.filter(todo => {
+      return todo.getId() !== todoId;
+    });
+    updateTodoList(updateTodos);
+    setConfirmBox({ show: false, todoId: 0 });
   }
   return (
     <>
@@ -97,6 +113,7 @@ const WeekView: FC<WeekViewProps> = (props) => {
           {todosComponent.length === 0 && (<div className='no-todos-present'>No todos present</div>)}
           {todosComponent.length > 0 && (todosComponent)}
         </Card>
+        {showConfirmBox.show && <ConfirmBox deleteTodo={deleteTodo} showConfirmBox={showConfirmBox} setConfirmBox={setConfirmBox}></ConfirmBox>}
       </div>
     </>
   );

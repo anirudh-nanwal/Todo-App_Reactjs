@@ -32,7 +32,7 @@ function App() {
     new Todo(19, 'Code java', (new Date(2022, 5, 1)).getTime(), PRIORITY.HIGH)
   ];
 
-
+  const [showConfirmBox, setConfirmBox] = useState({ show: false, todoId: 0 });
   const [view, setView] = useState(WEEK_VIEW);
   const [showAddEditTmpl, setAddEditFlag] = useState({
     showAddTmpl: false,
@@ -92,18 +92,14 @@ function App() {
   }
 
   const deleteTodoHandler: Function = (todoId: number): void => {
-    let updateTodos: Todo[] = todoList.filter(todo => {
-      return todo.getId() !== todoId;
-    });
-    console.log(updateTodos);
-    updateTodoList(updateTodos);
+    setConfirmBox({ show: true, todoId: todoId });
   }
 
   return (
     <div className='ws-d-flex ws-flex-col ws-fb-100 height-100-percent'>
       <QuickLaunch view={view} onViewChange={udpateViewHandler} onAddClick={onAddClickHandler} showAddEditTmpl={showAddEditTmpl} filterSettings={filterSettings} sortSettings={sortSettings} updateFilterSettings={updateFilterSettings} updateSortSettings={updateSortSettings}></QuickLaunch>
-      {view === WEEK_VIEW && (<WeekView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings} sortSettings={sortSettings}></WeekView>)}
-      {view === LIST_VIEW && (<ListView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings}></ListView>)}
+      {view === WEEK_VIEW && (<WeekView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} updateFilterSettings={updateFilterSettings} sortSettings={sortSettings} showConfirmBox={showConfirmBox} setConfirmBox={setConfirmBox}></WeekView>)}
+      {view === LIST_VIEW && (<ListView todos={todoList} cancelAddTodoHandler={cancelAddTodoHandler} deleteTodoHandler={deleteTodoHandler} showAddEditTmpl={showAddEditTmpl} updateTodoList={updateTodoList} addTodoHandler={addTodoHandler} filterSettings={filterSettings} sortSettings={sortSettings} showConfirmBox={showConfirmBox} setConfirmBox={setConfirmBox}></ListView>)}
     </div>
   );
 }
