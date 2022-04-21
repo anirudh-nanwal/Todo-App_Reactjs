@@ -1,6 +1,6 @@
 import FilterSettings from "../pojo/FilterSettings";
 import Todo from "../pojo/Todo";
-import { ASCENDING, PRIORITY, WEEK_VIEW } from "./Constants";
+import { ASCENDING, PRIORITY } from "./Constants";
 
 export const sortTodosByDate: Function = (listOfTodos: Todo[], sortType: string): Todo[] => {
     listOfTodos.sort((a: Todo, b: Todo) => {

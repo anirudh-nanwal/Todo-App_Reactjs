@@ -1,0 +1,40 @@
+.ConfirmBox {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 20vh;
+    left: 25%;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+}
+
+.ConfirmBox .title {
+    display: flex;
+    height: 30px;
+    font-size: 18px;
+}
+
+.ConfirmBox .message {
+    display: flex;
+    height: 25px;
+}
+
+.ConfirmBox .actions {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 40px;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.75);
+}

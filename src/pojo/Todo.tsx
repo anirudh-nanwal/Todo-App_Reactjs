@@ -1,4 +1,4 @@
-import { LOW_PRIORITY, PRIORITY } from "../Utility/Constants";
+import { PRIORITY } from "../Utility/Constants";
 
 class Todo {
     private id: number;
